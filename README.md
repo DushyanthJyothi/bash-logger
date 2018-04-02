@@ -1,7 +1,10 @@
 # bash-logger
 log4j style bash logger
+
 Utility script to print log4j style messages for logging INFO, DEBUG, TRACE, ERROR, FATAL
+
 Logs to STDOUT or specific file provided
+
 Known: Lots of repeat code (Improve) required to achive proper called script line number
 
 # Usage
