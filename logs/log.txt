@@ -1,0 +1,10 @@
+[ 02-04-2018 16:32:17 | INFO  | test.sh:do_something:11  ]: STARTED
+[ 02-04-2018 16:32:17 | INFO  | test.sh:do_something:12  ]: This is DEFAULT log message
+[ 02-04-2018 16:32:17 | INFO  | test.sh:do_something:13  ]: This is INFO log message
+[ 02-04-2018 16:32:17 | DEBUG | test.sh:do_something:14  ]: This is DEBUG log message
+{ callstack: caller: 14 ./test.sh | sources: ./logger.sh ./test.sh ./test.sh | fnctions: logd do_something main | lines: 14 20 0 }
+[ 02-04-2018 16:32:17 | TRACE | test.sh:do_something:15  ]: This is TRACE log message
+{ callstack: caller: 15 ./test.sh | sources: ./logger.sh ./test.sh ./test.sh | fnctions: logt do_something main | lines: 15 20 0 }
+[ 02-04-2018 16:32:17 | ERROR | test.sh:do_something:16  ]: This is ERROR log message
+[ 02-04-2018 16:32:17 | FATAL | test.sh:do_something:17  ]: This is FATAL log message
+[ 02-04-2018 16:32:17 | INFO  | test.sh:do_something:18  ]: FINISHED
