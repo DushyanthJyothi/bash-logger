@@ -38,9 +38,11 @@ format:  [ time_and_date | log_type | script_name:function_name:line  ]: message
 [ 04-04-2018 22:39:40 | INFO  | test.sh:do_something:18  ]: This is INFO log message: designates informational messages that highlight the progress of the application at coarse-grained level.
 
 [ 04-04-2018 22:39:40 | DEBUG | test.sh:do_something:19  ]: This is DEBUG log message: designates fine-grained informational events that are most useful to debug an application.
+
 { callstack: caller: 19 ./test.sh | sources: ./logger.sh ./test.sh ./test.sh | functions: logd do_something main | lines: 19 28 0 }
 
 [ 04-04-2018 22:39:40 | TRACE | test.sh:do_something:20  ]: This is TRACE log message: designates finer-grained informational events than the DEBUG.
+
 { callstack: caller: 20 ./test.sh | sources: ./logger.sh ./test.sh ./test.sh | functions: logt do_something main | lines: 20 28 0 }
 
 [ 04-04-2018 22:39:40 | WARN  | test.sh:do_something:21  ]: This is WARN log message: designates potentially harmful situations.
