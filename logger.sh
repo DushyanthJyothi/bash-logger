@@ -4,6 +4,7 @@
 #       INFO, DEBUG, TRACE, ERROR, FATAL
 # Logs to STDOUT or specific file
 # Known: Lots of repeat code (Improve) required to achive proper called script line number
+# Author : Dushyanth Jyothi
 
 
 log_file=""
@@ -75,10 +76,10 @@ logd(){
     time_and_date=$(date '+%d-%m-%Y %H:%M:%S')
     if [ -e "$log_file" ]; then
         echo "[ $time_and_date | $log_type | $script_name:$function_name:$line  ]: $message" >> "$log_file"
-        echo "{ callstack: caller: $( caller ) | sources: ${BASH_SOURCE[*]} | fnctions: ${FUNCNAME[*]} | lines: ${BASH_LINENO[*]} }" >> "$log_file"
+        echo "{ callstack: caller: $( caller ) | sources: ${BASH_SOURCE[*]} | functions: ${FUNCNAME[*]} | lines: ${BASH_LINENO[*]} }" >> "$log_file"
     else
         echo "[ $time_and_date | $log_type | $script_name:$function_name:$line  ]: $message"
-        echo "{ callstack: caller: $( caller ) | sources: ${BASH_SOURCE[*]} | fnctions: ${FUNCNAME[*]} | lines: ${BASH_LINENO[*]} }"
+        echo "{ callstack: caller: $( caller ) | sources: ${BASH_SOURCE[*]} | functions: ${FUNCNAME[*]} | lines: ${BASH_LINENO[*]} }"
     fi
 }
 
@@ -98,10 +99,10 @@ logt(){
     time_and_date=$(date '+%d-%m-%Y %H:%M:%S')
     if [ -e "$log_file" ]; then
         echo "[ $time_and_date | $log_type | $script_name:$function_name:$line  ]: $message" >> "$log_file"
-        echo "{ callstack: caller: $( caller ) | sources: ${BASH_SOURCE[*]} | fnctions: ${FUNCNAME[*]} | lines: ${BASH_LINENO[*]} }" >> "$log_file"
+        echo "{ callstack: caller: $( caller ) | sources: ${BASH_SOURCE[*]} | functions: ${FUNCNAME[*]} | lines: ${BASH_LINENO[*]} }" >> "$log_file"
     else
         echo "[ $time_and_date | $log_type | $script_name:$function_name:$line  ]: $message"
-        echo "{ callstack: caller: $( caller ) | sources: ${BASH_SOURCE[*]} | fnctions: ${FUNCNAME[*]} | lines: ${BASH_LINENO[*]} }"
+        echo "{ callstack: caller: $( caller ) | sources: ${BASH_SOURCE[*]} | functions: ${FUNCNAME[*]} | lines: ${BASH_LINENO[*]} }"
     fi
 }
 
