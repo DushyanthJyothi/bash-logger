@@ -14,7 +14,7 @@ source ./logger.sh
 use one of the functions to log a message:
  
 
-log "This is DEFAULT log message"
+_log "This is DEFAULT log message"
 
 logi "This is INFO log message: designates informational messages that highlight the progress of the application at coarse-grained level."
 

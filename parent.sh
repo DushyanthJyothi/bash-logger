@@ -8,10 +8,10 @@
 source ./logger.sh
 
 
-log "about to call child script"
+_log "about to call child script"
 
 # source child
 source ./child.sh
 
-log "done with child script"
+logi "done with child script"
 

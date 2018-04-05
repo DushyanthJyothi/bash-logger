@@ -22,7 +22,8 @@ set_log_file(){
 }
 
 # Default log : INFO
-log(){
+# Dont want to conflict with other log commands
+_log(){
     local script_name
     script_name="${BASH_SOURCE[1]}"
         script_name="${script_name##*/}"
