@@ -10,7 +10,7 @@ In your bash script (e.g. test.sh)
 
 add: 
 
-source ./logger.sh
+source /path/to/logger.sh
 
 then use one of the functions to log a message:
  
