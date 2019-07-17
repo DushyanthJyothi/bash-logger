@@ -1,17 +1,18 @@
 # bash-logger
+
 log4j style bash logger
 
 Utility script to print log4j style messages for logging INFO, DEBUG, TRACE, WARN, ERROR, FATAL
 
-Logs to STDOUT or specific file provided
-
 
 # Usage
-In your bash script add:
+In your bash script (e.g. test.sh) 
+
+add: 
 
 source ./logger.sh
 
-use one of the functions to log a message:
+then use one of the functions to log a message:
  
 
 __log "This is DEFAULT log message"
@@ -28,6 +29,12 @@ __loge "This is ERROR log message: designates error events that might still allo
 
 __logf "This is FATAL log message: designates very severe error events that will presumably lead the application to abort."
 
+
+execute: ./test.sh 
+
+or
+
+./test.sh >test.stdout 2>test.stderr 
 
 # Output
 
@@ -50,4 +57,5 @@ callstack: caller: 26 ./test.sh | sources: logger.sh ./test.sh ./test.sh | funct
 17-07-2019 22:31:06 [test.sh:do_something:28] ERROR - This is ERROR log message: designates error events that might still allow the application to continue running.
 
 17-07-2019 22:31:06 [test.sh:do_something:29] FATAL - This is FATAL log message: designates very severe error events that will presumably lead the application to abort.
+
 17-07-2019 22:31:06 [test.sh:do_something:31] INFO - FINISHED
