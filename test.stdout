@@ -1,0 +1,9 @@
+17-07-2019 22:22:46 [test.sh:do_something:19] INFO - STARTED
+17-07-2019 22:22:46 [test.sh:do_something:21] INFO - This is DEFAULT log message
+17-07-2019 22:22:46 [test.sh:do_something:23] INFO - This is INFO log message: designates informational messages that highlight the progress of the application at coarse-grained level.
+17-07-2019 22:22:46 [test.sh:do_something:24] DEBUG - This is DEBUG log message: designates fine-grained informational events that are most useful to debug an application.
+17-07-2019 22:22:46 [test.sh:do_something:26] TRACE - This is TRACE log message: designates finer-grained informational events than the DEBUG.
+callstack: caller: 26 ./test.sh | sources: logger.sh ./test.sh ./test.sh | functions: __logt do_something main | lines: 26 35 0
+17-07-2019 22:22:46 [test.sh:do_something:27] WARN - This is WARN log message: designates potentially harmful situations.
+17-07-2019 22:22:46 [test.sh:do_something:29] FATAL - This is FATAL log message: designates very severe error events that will presumably lead the application to abort.
+17-07-2019 22:22:46 [test.sh:do_something:31] INFO - FINISHED
