@@ -14,40 +14,40 @@ source ./logger.sh
 use one of the functions to log a message:
  
 
-_log "This is DEFAULT log message"
+__log "This is DEFAULT log message"
 
-logi "This is INFO log message: designates informational messages that highlight the progress of the application at coarse-grained level."
+__logi "This is INFO log message: designates informational messages that highlight the progress of the application at coarse-grained level."
 
-logd "This is DEBUG log message: designates fine-grained informational events that are most useful to debug an application."
+__logd "This is DEBUG log message: designates fine-grained informational events that are most useful to debug an application."
 
-logt "This is TRACE log message: designates finer-grained informational events than the DEBUG."
+__logt "This is TRACE log message: designates finer-grained informational events than the DEBUG."
 
-logw "This is WARN log message: designates potentially harmful situations."
+__logw "This is WARN log message: designates potentially harmful situations."
 
-loge "This is ERROR log message: designates error events that might still allow the application to continue running."
+__loge "This is ERROR log message: designates error events that might still allow the application to continue running."
 
-logf "This is FATAL log message: designates very severe error events that will presumably lead the application to abort."
+__logf "This is FATAL log message: designates very severe error events that will presumably lead the application to abort."
 
 
 # Output
 
-format:  [ time_and_date | log_type | script_name:function_name:line  ]: message 
+17-07-2019 22:31:06 [test.sh:do_something:19] INFO - STARTED
 
-[ 04-04-2018 22:39:40 | INFO  | test.sh:do_something:17  ]: This is DEFAULT log message
+17-07-2019 22:31:06 [test.sh:do_something:21] INFO - This is DEFAULT log message
 
-[ 04-04-2018 22:39:40 | INFO  | test.sh:do_something:18  ]: This is INFO log message: designates informational messages that highlight the progress of the application at coarse-grained level.
+17-07-2019 22:31:06 [test.sh:do_something:23] INFO - This is INFO log message: designates informational messages that highlight the progress of the application at coarse-grained level.
 
-[ 04-04-2018 22:39:40 | DEBUG | test.sh:do_something:19  ]: This is DEBUG log message: designates fine-grained informational events that are most useful to debug an application.
+17-07-2019 22:31:06 [test.sh:do_something:24] DEBUG - This is DEBUG log message: designates fine-grained informational events that are most useful to debug an application.
 
-{ callstack: caller: 19 ./test.sh | sources: ./logger.sh ./test.sh ./test.sh | functions: logd do_something main | lines: 19 28 0 }
+17-07-2019 22:31:06 [test.sh:do_something:25] ERROR - This is ERROR log message: designates error events that might still allow the application to continue running.
 
-[ 04-04-2018 22:39:40 | TRACE | test.sh:do_something:20  ]: This is TRACE log message: designates finer-grained informational events than the DEBUG.
+17-07-2019 22:31:06 [test.sh:do_something:26] TRACE - This is TRACE log message: designates finer-grained informational events than the DEBUG.
 
-{ callstack: caller: 20 ./test.sh | sources: ./logger.sh ./test.sh ./test.sh | functions: logt do_something main | lines: 20 28 0 }
+callstack: caller: 26 ./test.sh | sources: logger.sh ./test.sh ./test.sh | functions: __logt do_something main | lines: 26 35 0
 
-[ 04-04-2018 22:39:40 | WARN  | test.sh:do_something:21  ]: This is WARN log message: designates potentially harmful situations.
+17-07-2019 22:31:06 [test.sh:do_something:27] WARN - This is WARN log message: designates potentially harmful situations.
 
-[ 04-04-2018 22:39:40 | ERROR | test.sh:do_something:22  ]: This is ERROR log message: designates error events that might still allow the application to continue running.
+17-07-2019 22:31:06 [test.sh:do_something:28] ERROR - This is ERROR log message: designates error events that might still allow the application to continue running.
 
-[ 04-04-2018 22:39:40 | FATAL | test.sh:do_something:23  ]: This is FATAL log message: designates very severe error events that will presumably lead the application to abort.
-
+17-07-2019 22:31:06 [test.sh:do_something:29] FATAL - This is FATAL log message: designates very severe error events that will presumably lead the application to abort.
+17-07-2019 22:31:06 [test.sh:do_something:31] INFO - FINISHED
