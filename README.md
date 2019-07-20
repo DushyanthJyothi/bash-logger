@@ -18,11 +18,7 @@ In your bash script (e.g. test.sh)
 
 - __bl_set_log_level "TRACE"
 
-<<<<<<< HEAD
 If not set it will use INFO as a default log level
-=======
-source /path/to/logger.sh
->>>>>>> bf90d1267636c8d1016b155d3e4cb7589cfe059a
 
 
 3) use the following functions to log:

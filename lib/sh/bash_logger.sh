@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 ###################################################
-# Script to print log4j style messages for logging
-# at different levels:
+# Bash library to print log4j style messages
+# for logging at different levels:
 #	TRACE > DEBUG > INFO > WARN > ERROR > FATAL
 #
 # Globals:
