@@ -1,2 +1,2 @@
-17-07-2019 22:22:46 [test.sh:do_something:25] ERROR - This is ERROR log message: designates error events that might still allow the application to continue running.
-17-07-2019 22:22:46 [test.sh:do_something:28] ERROR - This is ERROR log message: designates error events that might still allow the application to continue running.
+20-07-2019 02:40:35 [test.sh:do_something:line:37] ERROR - This is ERROR log message: designates error events that might still allow the application to continue running.
+20-07-2019 02:40:35 [test.sh:do_something_else:line:21] ERROR - This is ERROR log message: designates error events that might still allow the application to continue running.

@@ -2,60 +2,85 @@
 
 log4j style bash logger
 
-Utility script to print log4j style messages for logging INFO, DEBUG, TRACE, WARN, ERROR, FATAL
+Utility library to print log4j style messages for logging at different levels:
+
+TRACE > DEBUG > INFO > WARN > ERROR > FATAL
 
 
 # Usage
 In your bash script (e.g. test.sh) 
 
-add: 
+1) add bash_logger.sh library path: 
 
-source ./logger.sh
+ - source lib/sh/bash_logger.sh
 
-then use one of the functions to log a message:
+2) set log level you want to print, for e.g.:
+
+- __bl_set_log_level "TRACE"
+
+If not set it will use INFO as a default log level
+
+
+3) use the following functions to log:
  
 
-__log "This is DEFAULT log message"
+  __log_start
 
-__logi "This is INFO log message: designates informational messages that highlight the progress of the application at coarse-grained level."
+  __log "This is DEFAULT log message"
 
-__logd "This is DEBUG log message: designates fine-grained informational events that are most useful to debug an application."
+  __logt "This is TRACE log message: designates finer-grained informational events than the DEBUG."
 
-__logt "This is TRACE log message: designates finer-grained informational events than the DEBUG."
+  __logd "This is DEBUG log message: designates fine-grained informational events that are most useful to debug an application."
 
-__logw "This is WARN log message: designates potentially harmful situations."
+  __logi "This is INFO log message: designates informational messages that highlight the progress of the application at coarse-grained level."
 
-__loge "This is ERROR log message: designates error events that might still allow the application to continue running."
+  __logw "This is WARN log message: designates potentially harmful situations."
 
-__logf "This is FATAL log message: designates very severe error events that will presumably lead the application to abort."
+  __loge "This is ERROR log message: designates error events that might still allow the application to continue running."
+
+  __logf "This is FATAL log message: designates very severe error events that will presumably lead the application to abort."
+
+  __logt "This is TRACE log message: designates finer-grained informational events than the DEBUG."
+
+  __log_finish
 
 
-execute: ./test.sh 
 
-or
+4) execute: ./test.sh 
+
+or seperate stdout and stderr into seperate files:
 
 ./test.sh >test.stdout 2>test.stderr 
 
 # Output
 
-17-07-2019 22:31:06 [test.sh:do_something:19] INFO - STARTED
+20-07-2019 02:34:45 [test.sh:do_something:line:29] INFO - STARTED
 
-17-07-2019 22:31:06 [test.sh:do_something:21] INFO - This is DEFAULT log message
+20-07-2019 02:34:45 [test.sh:do_something:line:31] INFO - This is DEFAULT log message
 
-17-07-2019 22:31:06 [test.sh:do_something:23] INFO - This is INFO log message: designates informational messages that highlight the progress of the application at coarse-grained level.
+20-07-2019 02:34:45 [test.sh:do_something:line:33] TRACE - This is TRACE log message: designates finer-grained informational events than the DEBUG.
+33 ./test.sh
 
-17-07-2019 22:31:06 [test.sh:do_something:24] DEBUG - This is DEBUG log message: designates fine-grained informational events that are most useful to debug an application.
+        Execution call_stack: 47 : test.sh : do_something
 
-17-07-2019 22:31:06 [test.sh:do_something:25] ERROR - This is ERROR log message: designates error events that might still allow the application to continue running.
+        Execution call_stack: 0 : test.sh : main
 
-17-07-2019 22:31:06 [test.sh:do_something:26] TRACE - This is TRACE log message: designates finer-grained informational events than the DEBUG.
+20-07-2019 02:34:45 [test.sh:do_something:line:34] DEBUG - This is DEBUG log message: designates fine-grained informational events that are most useful to debug an application.
 
-callstack: caller: 26 ./test.sh | sources: logger.sh ./test.sh ./test.sh | functions: __logt do_something main | lines: 26 35 0
+20-07-2019 02:34:45 [test.sh:do_something:line:35] INFO - This is INFO log message: designates informational messages that highlight the progress of the application at coarse-grained level.
 
-17-07-2019 22:31:06 [test.sh:do_something:27] WARN - This is WARN log message: designates potentially harmful situations.
+20-07-2019 02:34:45 [test.sh:do_something:line:36] WARN - This is WARN log message: designates potentially harmful situations.
 
-17-07-2019 22:31:06 [test.sh:do_something:28] ERROR - This is ERROR log message: designates error events that might still allow the application to continue running.
+20-07-2019 02:34:45 [test.sh:do_something:line:37] ERROR - This is ERROR log message: designates error events that might still allow the application to continue running.
 
-17-07-2019 22:31:06 [test.sh:do_something:29] FATAL - This is FATAL log message: designates very severe error events that will presumably lead the application to abort.
+20-07-2019 02:34:45 [test.sh:do_something:line:38] FATAL - This is FATAL log message: designates very severe error events that will presumably lead the application to abort.
 
-17-07-2019 22:31:06 [test.sh:do_something:31] INFO - FINISHED
+20-07-2019 02:34:45 [test.sh:do_something:line:39] TRACE - This is TRACE log message: designates finer-grained informational events than the DEBUG.
+39 ./test.sh
+
+        Execution call_stack: 47 : test.sh : do_something
+
+        Execution call_stack: 0 : test.sh : main
+
+20-07-2019 02:34:45 [test.sh:do_something:line:41] INFO - FINISHED
+
