@@ -1,22 +1,16 @@
+24-07-2019 21:07:14 [test.sh:do_something:line:30] INFO - STARTED
+24-07-2019 21:07:14 [test.sh:do_something:line:32] INFO - This is DEFAULT log message
+24-07-2019 21:07:14 [test.sh:do_something:line:34] TRACE - This is TRACE log message: finer-grained informational events than the DEBUG.
+24-07-2019 21:07:14 [test.sh:do_something:line:34] TRACE - Execution call stack:
+   test.sh:47 do_something(...)
+   test.sh:0 main(...)
+24-07-2019 21:07:14 [test.sh:do_something:line:35] DEBUG - This is DEBUG log message: fine-grained informational events that are most useful to debug an application.
+24-07-2019 21:07:14 [test.sh:do_something:line:36] INFO - This is INFO log message: informational messages that highlight the progress of the application at coarse-grained level.
+24-07-2019 21:07:14 [test.sh:do_something:line:37] WARN - This is WARN log message: designates potentially harmful situations.
+24-07-2019 21:07:14 [test.sh:do_something:line:39] FATAL - This is FATAL log message: very severe error events that will presumably lead the application to abort.
+24-07-2019 21:07:14 [test.sh:do_something:line:41] INFO - FINISHED
 
-20-07-2019 02:40:35 [test.sh:do_something:line:29] INFO - STARTED
-20-07-2019 02:40:35 [test.sh:do_something:line:31] INFO - This is DEFAULT log message
-20-07-2019 02:40:35 [test.sh:do_something:line:33] TRACE - This is TRACE log message: designates finer-grained informational events than the DEBUG.
-33 ./test.sh
-	Execution call_stack: 47 : test.sh : do_something
-	Execution call_stack: 0 : test.sh : main
-20-07-2019 02:40:35 [test.sh:do_something:line:34] DEBUG - This is DEBUG log message: designates fine-grained informational events that are most useful to debug an application.
-20-07-2019 02:40:35 [test.sh:do_something:line:35] INFO - This is INFO log message: designates informational messages that highlight the progress of the application at coarse-grained level.
-20-07-2019 02:40:35 [test.sh:do_something:line:36] WARN - This is WARN log message: designates potentially harmful situations.
-20-07-2019 02:40:35 [test.sh:do_something:line:38] FATAL - This is FATAL log message: designates very severe error events that will presumably lead the application to abort.
-20-07-2019 02:40:35 [test.sh:do_something:line:39] TRACE - This is TRACE log message: designates finer-grained informational events than the DEBUG.
-39 ./test.sh
-	Execution call_stack: 47 : test.sh : do_something
-	Execution call_stack: 0 : test.sh : main
-20-07-2019 02:40:35 [test.sh:do_something:line:41] INFO - FINISHED
-
-
-20-07-2019 02:40:35 [test.sh:do_something_else:line:19] INFO - STARTED
-20-07-2019 02:40:35 [test.sh:do_something_else:line:22] FATAL - This is FATAL log message: designates very severe error events that will presumably lead the application to abort.
-20-07-2019 02:40:35 [test.sh:do_something_else:line:24] INFO - FINISHED
+24-07-2019 21:07:14 [test.sh:do_something_else:line:20] INFO - STARTED
+24-07-2019 21:07:14 [test.sh:do_something_else:line:23] FATAL - This is FATAL log message: very severe error events that will presumably lead the application to abort.
+24-07-2019 21:07:14 [test.sh:do_something_else:line:25] INFO - FINISHED
 

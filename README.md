@@ -18,7 +18,7 @@ In your bash script (e.g. test.sh)
 
 - __bl_set_log_level "TRACE"
 
-If not set it will use INFO as a default log level
+Default is INFO log level
 
 
 3) use the following functions to log:
@@ -28,59 +28,67 @@ If not set it will use INFO as a default log level
 
   __log "This is DEFAULT log message"
 
-  __logt "This is TRACE log message: designates finer-grained informational events than the DEBUG."
+  __logt "This is TRACE log message: finer-grained informational events than the DEBUG."
 
-  __logd "This is DEBUG log message: designates fine-grained informational events that are most useful to debug an application."
+  __logd "This is DEBUG log message: fine-grained informational events that are most useful to debug an application."
 
-  __logi "This is INFO log message: designates informational messages that highlight the progress of the application at coarse-grained level."
+  __logi "This is INFO log message: informational messages that highlight the progress of the application at coarse-grained level."
 
   __logw "This is WARN log message: designates potentially harmful situations."
 
-  __loge "This is ERROR log message: designates error events that might still allow the application to continue running."
+  __loge "This is ERROR log message: error events that might still allow the application to continue running."
 
-  __logf "This is FATAL log message: designates very severe error events that will presumably lead the application to abort."
-
-  __logt "This is TRACE log message: designates finer-grained informational events than the DEBUG."
+  __logf "This is FATAL log message: very severe error events that will presumably lead the application to abort."
 
   __log_finish
 
 
 
-4) execute: ./test.sh 
 
-or seperate stdout and stderr into seperate files:
-
-./test.sh >test.stdout 2>test.stderr 
+4) execute: ./test.sh >test.stdout 2>test.stderr 
 
 # Output
 
-20-07-2019 02:34:45 [test.sh:do_something:line:29] INFO - STARTED
+24-07-2019 21:16:02 [test.sh:do_something:line:31] INFO - STARTED
 
-20-07-2019 02:34:45 [test.sh:do_something:line:31] INFO - This is DEFAULT log message
+24-07-2019 21:16:02 [test.sh:do_something:line:33] INFO - This is DEFAULT log message
 
-20-07-2019 02:34:45 [test.sh:do_something:line:33] TRACE - This is TRACE log message: designates finer-grained informational events than the DEBUG.
-33 ./test.sh
+24-07-2019 21:16:02 [test.sh:do_something:line:35] TRACE - This is TRACE log message: finer-grained informational events than the DEBUG.
 
-        Execution call_stack: 47 : test.sh : do_something
+24-07-2019 21:16:02 [test.sh:do_something:line:35] TRACE - Execution call stack:
 
-        Execution call_stack: 0 : test.sh : main
+   test.sh:48 do_something(..)
 
-20-07-2019 02:34:45 [test.sh:do_something:line:34] DEBUG - This is DEBUG log message: designates fine-grained informational events that are most useful to debug an application.
+   test.sh:0 main(..)
 
-20-07-2019 02:34:45 [test.sh:do_something:line:35] INFO - This is INFO log message: designates informational messages that highlight the progress of the application at coarse-grained level.
+24-07-2019 21:16:02 [test.sh:do_something:line:36] DEBUG - This is DEBUG log message: fine-grained informational events that are most useful to debug an application.
 
-20-07-2019 02:34:45 [test.sh:do_something:line:36] WARN - This is WARN log message: designates potentially harmful situations.
+24-07-2019 21:16:02 [test.sh:do_something:line:37] INFO - This is INFO log message: informational messages that highlight the progress of the application at coarse-grained level.
 
-20-07-2019 02:34:45 [test.sh:do_something:line:37] ERROR - This is ERROR log message: designates error events that might still allow the application to continue running.
+24-07-2019 21:16:02 [test.sh:do_something:line:38] WARN - This is WARN log message: designates potentially harmful situations.
 
-20-07-2019 02:34:45 [test.sh:do_something:line:38] FATAL - This is FATAL log message: designates very severe error events that will presumably lead the application to abort.
+24-07-2019 21:16:02 [test.sh:do_something:line:39] ERROR - This is ERROR log message: error events that might still allow the application to continue running.
 
-20-07-2019 02:34:45 [test.sh:do_something:line:39] TRACE - This is TRACE log message: designates finer-grained informational events than the DEBUG.
-39 ./test.sh
+24-07-2019 21:16:02 [test.sh:do_something:line:40] FATAL - This is FATAL log message: very severe error events that will presumably lead the application to abort.
 
-        Execution call_stack: 47 : test.sh : do_something
+24-07-2019 21:16:02 [test.sh:do_something:line:42] INFO - FINISHED
 
-        Execution call_stack: 0 : test.sh : main
 
-20-07-2019 02:34:45 [test.sh:do_something:line:41] INFO - FINISHED
+24-07-2019 21:16:02 [test.sh:do_something_else:line:20] INFO - STARTED
+
+24-07-2019 21:16:02 [test.sh:do_something_else:line:22] TRACE - This is TRACE log message: finer-grained informational events than the DEBUG.
+
+24-07-2019 21:16:02 [test.sh:do_something_else:line:22] TRACE - Execution call stack:
+
+   test.sh:44 do_something_else(..)
+
+   test.sh:48 do_something(..)
+
+   test.sh:0 main(..)
+
+24-07-2019 21:16:02 [test.sh:do_something_else:line:23] ERROR - This is ERROR log message: error events that might still allow the application to continue running.
+
+24-07-2019 21:16:02 [test.sh:do_something_else:line:24] FATAL - This is FATAL log message: very severe error events that will presumably lead the application to abort.
+
+24-07-2019 21:16:02 [test.sh:do_something_else:line:26] INFO - FINISHED
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 ###################################################
-# Bash library to print log4j style messages
-# for logging at different levels:
+# Script to print log4j style messages for logging
+# at different levels:
 #	TRACE > DEBUG > INFO > WARN > ERROR > FATAL
 #
 # Globals:
@@ -94,19 +94,17 @@ function __logt() {
     time_and_date=$(date '+%d-%m-%Y %H:%M:%S')
     echo "${time_and_date} [${__bl_script_name}:${__bl_function_name}:line:${__bl_called_line_number}] ${__bl_log_message_type} - ${__bl_log_message}"
 
-		echo "$( caller )"
+  if [ ${#FUNCNAME[@]} -gt 2 ]; then
+    echo "${time_and_date} [${__bl_script_name}:${__bl_function_name}:line:${__bl_called_line_number}] ${__bl_log_message_type} - Execution call stack:"
+  fi
+
 		for (( i=0; i < __bl_functions_length; i++ )); do
-			#if [ $i -gt 0 ];then
-				call_stack+=" => "
-    	#fi
     	if [ ! $i ==  $(( __bl_functions_length - 1 )) ]; then
 				if [[ "${BASH_SOURCE[$i]}" != *"bash_logger"* ]]; then
-					echo "	Execution call_stack: ${BASH_LINENO[$i]} : ${BASH_SOURCE[$i]//.\//} : ${FUNCNAME[$i]}"
-					#echo "	Execution call_stack: Function: '${FUNCNAME[$i]}' called from: '${BASH_SOURCE[$i]//.\//}' at line number: '${BASH_LINENO[$i]}'"
+           echo "   ${BASH_SOURCE[$i+1]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)"
 				fi
     	else
-				#echo "	Execution call_stack: Function: '${FUNCNAME[$i]}' called from: '${BASH_SOURCE[$i]//.\//}' at line number: '${BASH_LINENO[$i]}'"
-				echo "	Execution call_stack: ${BASH_LINENO[$i]} : ${BASH_SOURCE[$i]//.\//} : ${FUNCNAME[$i]}"
+        echo "   ${BASH_SOURCE[$i]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)"
     	fi
   	done
 	fi
@@ -265,7 +263,6 @@ function __log_start() {
 
   local time_and_date
   time_and_date=$(date '+%d-%m-%Y %H:%M:%S')
-	echo ""
   echo "${time_and_date} [${__bl_script_name}:${__bl_function_name}:line:${__bl_called_line_number}] ${__bl_log_message_type} - ${__bl_log_message}"
 }
 
@@ -273,18 +270,22 @@ function __log_start() {
 function __log_finish() {
 	__bl_log_message_type="INFO"
 
+  local __bl_script_name
   __bl_script_name="${BASH_SOURCE[1]}"
   __bl_script_name="${__bl_script_name##*/}"
 
+  local __bl_function_name
   __bl_function_name="${FUNCNAME[1]}"
 
+  local __bl_called_line_number
   __bl_called_line_number="${BASH_LINENO[0]}"
 
+  local __bl_log_message
   __bl_log_message="FINISHED"
 
   local time_and_date
   time_and_date=$(date '+%d-%m-%Y %H:%M:%S')
   echo "${time_and_date} [${__bl_script_name}:${__bl_function_name}:line:${__bl_called_line_number}] ${__bl_log_message_type} - ${__bl_log_message}"
-	echo ""
+  echo ""
 }
 
