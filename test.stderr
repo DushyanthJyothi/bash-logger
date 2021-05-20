@@ -1,2 +1,4 @@
-24-07-2019 21:07:14 [test.sh:do_something:line:38] ERROR - This is ERROR log message: error events that might still allow the application to continue running.
-24-07-2019 21:07:14 [test.sh:do_something_else:line:22] ERROR - This is ERROR log message: error events that might still allow the application to continue running.
+21-05-2021 00:50:18 - test.sh:do_something:40 - ERROR - This is ERROR log message: error events that might still allow the application to continue running.
+21-05-2021 00:50:18 - test.sh:do_something:41 - FATAL - This is FATAL log message: very severe error events that will presumably lead the application to abort.
+21-05-2021 00:50:48 - test.sh:do_something_else:24 - ERROR - This is ERROR log message: error events that might still allow the application to continue running.
+21-05-2021 00:50:48 - test.sh:do_something_else:25 - FATAL - This is FATAL log message: very severe error events that will presumably lead the application to abort.

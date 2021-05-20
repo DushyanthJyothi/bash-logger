@@ -9,34 +9,35 @@
 
 set -u
 set -e
-
+source lib/sh/bash_logger.sh
+set_log_level "FATAL"
 
 
 do_something_else_in_child() {
 
-  __log_start
+  log_start
 
-  __logt "This is TRACE log message: finer-grained informational events than the DEBUG."
-  __loge "This is ERROR log message: error events that might still allow the application to continue running."
-  __logf "This is FATAL log message: very severe error events that will presumably lead the application to abort."
-
-  __log_finish
+  log_trace "This is TRACE log message: finer-grained informational events than the DEBUG."
+  log_error "This is ERROR log message: error events that might still allow the application to continue running."
+  log_fatal "This is FATAL log message: very severe error events that will presumably lead the application to abort."
+  sleep 15
+  log_finish
 }
 
 do_something_in_child() {
 
-	__log_start
+	log_start
 
-	__log "This is DEFAULT log message"
+	log "This is DEFAULT log message"
 
-  __logt "This is TRACE log message: finer-grained informational events than the DEBUG."
-  __logd "This is DEBUG log message: fine-grained informational events that are most useful to debug an application."
-  __logi "This is INFO log message: informational messages that highlight the progress of the application at coarse-grained level."
-  __logw "This is WARN log message: designates potentially harmful situations."
-  __loge "This is ERROR log message: error events that might still allow the application to continue running."
-  __logf "This is FATAL log message: very severe error events that will presumably lead the application to abort."
-
-	__log_finish
+  log_trace "This is TRACE log message: finer-grained informational events than the DEBUG."
+  log_debug "This is DEBUG log message: fine-grained informational events that are most useful to debug an application."
+  log_info "This is INFO log message: informational messages that highlight the progress of the application at coarse-grained level."
+  log_warn "This is WARN log message: designates potentially harmful situations."
+  log_error "This is ERROR log message: error events that might still allow the application to continue running."
+  log_fatal "This is FATAL log message: very severe error events that will presumably lead the application to abort."
+  sleep 20
+	log_finish
 
   do_something_else_in_child
 }
