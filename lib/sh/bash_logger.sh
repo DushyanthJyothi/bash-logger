@@ -100,9 +100,9 @@ function log_trace() {
     __bl_time_and_date=$(date '+%d-%m-%Y %H:%M:%S')
     echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}"
 
-  if [ ${#FUNCNAME[@]} -gt 2 ]; then
-    echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - Execution call stack:"
-  fi
+    if [ ${#FUNCNAME[@]} -gt 2 ]; then
+      echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - Execution call stack:"
+    fi
 
     for (( i=0; i < __bl_functions_length; i++ )); do
       if [ ! $i ==  $(( __bl_functions_length - 1 )) ]; then
@@ -220,6 +220,22 @@ function log_error() {
 
     __bl_time_and_date=$(date '+%d-%m-%Y %H:%M:%S')
     echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}" >&2
+
+    if [ ${#FUNCNAME[@]} -gt 2 ]; then
+      echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - Execution call stack:" >&2
+    fi
+
+    for (( i=0; i < __bl_functions_length; i++ )); do
+      if [ ! $i ==  $(( __bl_functions_length - 1 )) ]; then
+        if [[ "${BASH_SOURCE[$i]}" != *"bash_logger"* ]]; then
+           echo "   ${BASH_SOURCE[$i+1]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)" >&2
+        fi
+      else
+        echo "    ${BASH_SOURCE[$i]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)" >&2
+      fi
+    done
+
+
   fi
 }
 
@@ -247,6 +263,21 @@ function log_fatal() {
 
     __bl_time_and_date=$(date '+%d-%m-%Y %H:%M:%S')
     echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}" >&2
+
+    if [ ${#FUNCNAME[@]} -gt 2 ]; then
+      echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - Execution call stack:" >&2
+    fi
+
+    for (( i=0; i < __bl_functions_length; i++ )); do
+      if [ ! $i ==  $(( __bl_functions_length - 1 )) ]; then
+        if [[ "${BASH_SOURCE[$i]}" != *"bash_logger"* ]]; then
+           echo "   ${BASH_SOURCE[$i+1]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)" >&2
+        fi
+      else
+        echo "    ${BASH_SOURCE[$i]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)" >&2
+      fi
+    done
+
   fi
 }
 

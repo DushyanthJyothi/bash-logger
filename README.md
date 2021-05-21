@@ -48,31 +48,46 @@ Default is INFO log level
 
 # output
 
-21-05-2021 00:49:58 - test.sh:main:18 - #-- STARTED MAIN --#
+21-05-2021 08:54:43 - test.sh:main:18 - #-- STARTED MAIN --#
 
-21-05-2021 00:49:58 - test.sh:do_something:32 - #-- STARTED DO_SOMETHING --#
+21-05-2021 08:54:43 - test.sh:do_something:32 - #-- STARTED DO_SOMETHING --#
 
-21-05-2021 00:50:18 - test.sh:do_something:34 - This is DEFAULT log message
+21-05-2021 08:55:03 - test.sh:do_something:34 - This is DEFAULT log message
 
-21-05-2021 00:50:18 - test.sh:do_something:36 - TRACE - This is TRACE log message: finer-grained informational events than the D.
+21-05-2021 08:55:03 - test.sh:do_something:36 - TRACE - This is TRACE log message: finer-grained informational events than the DEBUG.
 
-21-05-2021 00:50:18 - test.sh:do_something:36 - TRACE - Execution call stack:
+21-05-2021 08:55:03 - test.sh:do_something:36 - TRACE - Execution call stack:
 
    test.sh:47 do_something(..)
 
     test.sh:0 main(..)
 
-21-05-2021 00:50:18 - test.sh:do_something:37 - DEBUG - This is DEBUG log message: fine-grained informational events that are mo.
 
-21-05-2021 00:50:18 - test.sh:do_something:38 - INFO - This is INFO log message: informational messages that highlight the progr.
+21-05-2021 08:55:03 - test.sh:do_something:37 - DEBUG - This is DEBUG log message: fine-grained informational events that are most useful to debug an application.
 
-21-05-2021 00:50:18 - test.sh:do_something:39 - WARN - This is WARN log message: designates potentially harmful situations.
+21-05-2021 08:55:03 - test.sh:do_something:38 - INFO - This is INFO log message: informational messages that highlight the progress of the application at coarse-grained le.
 
-21-05-2021 00:50:18 - test.sh:do_something:40 - ERROR - This is ERROR log message: error events that might still allow the appli.
+21-05-2021 08:55:03 - test.sh:do_something:39 - WARN - This is WARN log message: designates potentially harmful situations.
 
-21-05-2021 00:50:18 - test.sh:do_something:41 - FATAL - This is FATAL log message: very severe error events that will presumably.
 
-21-05-2021 00:50:18 - test.sh:do_something:42 - |-- FINISHED DO_SOMETHING - Took: 0h:0m:20s --|
+21-05-2021 08:55:03 - test.sh:do_something:40 - ERROR - This is ERROR log message: error events that might still allow the application to continue running.
 
-21-05-2021 00:50:58 - test.sh:main:49 - |-- FINISHED MAIN - Took: 0h:1m:0s --|
+21-05-2021 08:55:03 - test.sh:do_something:40 - ERROR - Execution call stack:
 
+   test.sh:47 do_something(..)
+
+    test.sh:0 main(..)
+
+
+21-05-2021 08:55:03 - test.sh:do_something:41 - FATAL - This is FATAL log message: very severe error events that will presumably lead the application to abort.
+
+21-05-2021 08:55:03 - test.sh:do_something:41 - FATAL - Execution call stack:
+
+   test.sh:47 do_something(..)
+
+    test.sh:0 main(..)
+
+
+21-05-2021 08:55:03 - test.sh:do_something:42 - |-- FINISHED DO_SOMETHING - Took: 0h:0m:20s --|
+
+21-05-2021 08:55:43 - test.sh:main:49 - |-- FINISHED MAIN - Took: 0h:1m:0s --|
