@@ -18,9 +18,7 @@
 # Follow shellguide: https://google.github.io/styleguide/shellguide.html
 # Check code against: https://www.shellcheck.net/
 
-
-set -u
-set -e
+set -ueo pipefail
 
 declare -gA __bl_log_levels=([TRACE]=TRACE [DEBUG]=DEBUG [INFO]=INFO [WARN]=WARN [ERROR]=ERROR [FATAL]=FATAL)
 declare -gA __bl_run_times
