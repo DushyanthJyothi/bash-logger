@@ -186,6 +186,8 @@ function log_error() {
 
     __bl_log_message="$*"
 
+    __bl_functions_length="${#FUNCNAME[@]}"
+
     __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
     echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}" >&2
 
@@ -222,6 +224,8 @@ function log_fatal() {
     __bl_called_line_number="${BASH_LINENO[0]}"
 
     __bl_log_message="$*"
+
+    __bl_functions_length="${#FUNCNAME[@]}"
 
     __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
     echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}" >&2
