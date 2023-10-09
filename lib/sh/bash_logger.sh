@@ -78,7 +78,7 @@ function log() {
 
   __bl_log_message="$*"
 
-  __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
+  __bl_time_and_date="$(date '+%Y-%m-%d %H:%M:%S')"
 
   LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message}")
   if [ -z "${__log_fd}" ]; then
@@ -108,7 +108,7 @@ function log_trace() {
 
     #${FUNCNAME[$i]} was called from the file ${BASH_SOURCE[$i+1]} at line number ${BASH_LINENO[$i]}
 
-    __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
+    __bl_time_and_date="$(date '+%Y-%m-%d %H:%M:%S')"
     LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}")
     if [ -z "${__log_fd}" ]; then
       echo "${LOG}"
@@ -133,7 +133,7 @@ function log_trace() {
              echo "${LOG}"
            else
              echo "${LOG}" >&${__log_fd}
-          fi
+           fi
         fi
       else
         LOG=$(echo "    ${BASH_SOURCE[$i]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)")
@@ -164,7 +164,7 @@ function log_debug() {
 
     __bl_log_message="$*"
 
-    __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
+    __bl_time_and_date="$(date '+%Y-%m-%d %H:%M:%S')"
     LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}")
     if [ -z "${__log_fd}" ]; then
       echo "${LOG}"
@@ -191,7 +191,7 @@ function log_info() {
 
     __bl_log_message="$*"
 
-    __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
+    __bl_time_and_date="$(date '+%Y-%m-%d %H:%M:%S')"
     LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}")
     if [ -z "${__log_fd}" ]; then
       echo "${LOG}"
@@ -217,7 +217,7 @@ function log_warn() {
 
     __bl_log_message="$*"
 
-    __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
+    __bl_time_and_date="$(date '+%Y-%m-%d %H:%M:%S')"
     LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}")
     if [ -z "${__log_fd}" ]; then
       echo "${LOG}"
@@ -246,7 +246,7 @@ function log_error() {
 
     __bl_functions_length="${#FUNCNAME[@]}"
 
-    __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
+    __bl_time_and_date="$(date '+%Y-%m-%d %H:%M:%S')"
     LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}")
     if [ -z "${__log_fd}" ]; then
       echo "${LOG}" >&2
@@ -305,7 +305,7 @@ function log_fatal() {
 
     __bl_functions_length="${#FUNCNAME[@]}"
 
-    __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
+    __bl_time_and_date="$(date '+%Y-%m-%d %H:%M:%S')"
     LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}")
     if [ -z "${__log_fd}" ]; then
       echo "${LOG}" >&2
@@ -360,7 +360,7 @@ function log_start() {
 
    __bl_log_message="#-- STARTED ${__bl_function_name^^} --#"
 
-  __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
+  __bl_time_and_date="$(date '+%Y-%m-%d %H:%M:%S')"
   LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message}")
   if [ -z "${__log_fd}" ]; then
     echo ""
@@ -382,7 +382,7 @@ function log_finish() {
 
   __bl_log_message="|-- FINISHED ${__bl_function_name^^} --|"
 
-  __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
+  __bl_time_and_date="$(date '+%Y-%m-%d %H:%M:%S')"
   if [ "${__bl_function_name^^}" = "MAIN" ]; then
     run_time=$(( $(date +%s) - __bl_script_start_time ))
   else
