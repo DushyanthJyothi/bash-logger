@@ -24,6 +24,7 @@ declare -gA __bl_log_levels=([TRACE]=TRACE [DEBUG]=DEBUG [INFO]=INFO [WARN]=WARN
 declare -gA __bl_run_times
 
 __log_level=
+__log_fd=
 __bl_script_start_time=$(date +%s)
 __bl_function_start_time=$(date +%s)
 __bl_script_name=
@@ -47,7 +48,23 @@ function set_log_level() {
   fi
 }
 
-
+function set_log_file() {
+  local -r LOG_FILE="${1}"
+  if [ -z "${LOG_FILE}" ]; then
+    echo "Log file not defined."
+  else
+    if ! $(touch "${LOG_FILE}"); then
+      echo "It is not possible to create this file: ${LOG_FILE}."
+    else 
+      if [ ! -w "${LOG_FILE}" ]; then
+        echo "It is not possible to write in this file: ${LOG_FILE}."
+      else
+        __log_fd="${LOG_FILE}"
+        exec {__log_fd}<>"${LOG_FILE}"
+      fi
+    fi
+  fi
+}
 
 # Default log : INFO
 function log() {
@@ -62,7 +79,13 @@ function log() {
   __bl_log_message="$*"
 
   __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
-  echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message}"
+
+  LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message}")
+  if [ -z "${__log_fd}" ]; then
+    echo "${LOG}"
+  else
+    echo "${LOG}" >&${__log_fd}
+  fi
 }
 
 # TRACE: designates finer-grained informational events than the DEBUG
@@ -86,19 +109,39 @@ function log_trace() {
     #${FUNCNAME[$i]} was called from the file ${BASH_SOURCE[$i+1]} at line number ${BASH_LINENO[$i]}
 
     __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
-    echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}"
+    LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}")
+    if [ -z "${__log_fd}" ]; then
+      echo "${LOG}"
+    else
+      echo "${LOG}" >&${__log_fd}
+    fi
 
     if (( ${#FUNCNAME[@]} > 2 )); then
-      echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - Execution call stack:"
+      LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - Execution call stack:")
+      if [ -z "${__log_fd}" ]; then
+        echo "${LOG}"
+      else
+        echo "${LOG}" >&${__log_fd}
+      fi
     fi
 
     for (( i=0; i < __bl_functions_length; i++ )); do
       if (( $i !=  $(( __bl_functions_length - 1 )) )); then
         if [[ "${BASH_SOURCE[$i]}" != *"bash_logger"* ]]; then
-           echo "   ${BASH_SOURCE[$i+1]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)"
+           LOG=$(echo "   ${BASH_SOURCE[$i+1]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)")
+           if [ -z "${__log_fd}" ]; then
+             echo "${LOG}"
+           else
+             echo "${LOG}" >&${__log_fd}
+          fi
         fi
       else
-        echo "    ${BASH_SOURCE[$i]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)"
+        LOG=$(echo "    ${BASH_SOURCE[$i]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)")
+        if [ -z "${__log_fd}" ]; then
+          echo "${LOG}"
+        else
+          echo "${LOG}" >&${__log_fd}
+        fi
       fi
     done
   fi
@@ -122,7 +165,12 @@ function log_debug() {
     __bl_log_message="$*"
 
     __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
-    echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}"
+    LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}")
+    if [ -z "${__log_fd}" ]; then
+      echo "${LOG}"
+    else
+      echo "${LOG}" >&${__log_fd}
+    fi
   fi
 }
 
@@ -144,7 +192,12 @@ function log_info() {
     __bl_log_message="$*"
 
     __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
-    echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}"
+    LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}")
+    if [ -z "${__log_fd}" ]; then
+      echo "${LOG}"
+    else
+      echo "${LOG}" >&${__log_fd}
+    fi
   fi
 }
 
@@ -165,7 +218,12 @@ function log_warn() {
     __bl_log_message="$*"
 
     __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
-    echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}"
+    LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}")
+    if [ -z "${__log_fd}" ]; then
+      echo "${LOG}"
+    else
+      echo "${LOG}" >&${__log_fd}
+    fi
   fi
 }
 
@@ -189,19 +247,39 @@ function log_error() {
     __bl_functions_length="${#FUNCNAME[@]}"
 
     __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
-    echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}" >&2
+    LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}")
+    if [ -z "${__log_fd}" ]; then
+      echo "${LOG}" >&2
+    else
+      echo "${LOG}" >&${__log_fd}
+    fi
 
     if (( ${#FUNCNAME[@]} > 2 )); then
-      echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - Execution call stack:" >&2
+      LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - Execution call stack:")
+      if [ -z "${__log_fd}" ]; then
+        echo "${LOG}" >&2
+      else
+        echo "${LOG}" >&${__log_fd}
+      fi
     fi
 
     for (( i=0; i < __bl_functions_length; i++ )); do
       if (( $i !=  $(( __bl_functions_length - 1 )) )); then
         if [[ "${BASH_SOURCE[$i]}" != *"bash_logger"* ]]; then
-           echo "   ${BASH_SOURCE[$i+1]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)" >&2
+           LOG=$(echo "   ${BASH_SOURCE[$i+1]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)")
+           if [ -z "${__log_fd}" ]; then
+             echo "${LOG}" >&2
+           else
+             echo "${LOG}" >&${__log_fd}
+           fi
         fi
       else
-        echo "    ${BASH_SOURCE[$i]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)" >&2
+        LOG=$(echo "    ${BASH_SOURCE[$i]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)")
+        if [ -z "${__log_fd}" ]; then
+          echo "${LOG}" >&2
+        else
+          echo "${LOG}" >&${__log_fd}
+        fi
       fi
     done
 
@@ -228,19 +306,39 @@ function log_fatal() {
     __bl_functions_length="${#FUNCNAME[@]}"
 
     __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
-    echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}" >&2
+    LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - ${__bl_log_message}")
+    if [ -z "${__log_fd}" ]; then
+      echo "${LOG}" >&2
+    else
+      echo "${LOG}" >&${__log_fd}
+    fi
 
     if (( ${#FUNCNAME[@]} > 2 )); then
-      echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - Execution call stack:" >&2
+      LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message_type} - Execution call stack:")
+      if [ -z "${__log_fd}" ]; then
+        echo "${LOG}" >&2
+      else
+        echo "${LOG}" >&${__log_fd}
+      fi
     fi
 
     for (( i=0; i < __bl_functions_length; i++ )); do
       if (( $i !=  $(( __bl_functions_length - 1 )) )); then
         if [[ "${BASH_SOURCE[$i]}" != *"bash_logger"* ]]; then
-           echo "   ${BASH_SOURCE[$i+1]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)" >&2
+           LOG=$(echo "   ${BASH_SOURCE[$i+1]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)")
+           if [ -z "${__log_fd}" ]; then
+             echo "${LOG}" >&2
+           else
+             echo "${LOG}" >&${__log_fd}
+           fi
         fi
       else
-        echo "    ${BASH_SOURCE[$i]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)" >&2
+        LOG=$(echo "    ${BASH_SOURCE[$i]//.\//}:${BASH_LINENO[$i]} ${FUNCNAME[$i]}(..)")
+        if [ -z "${__log_fd}" ]; then
+          echo "${LOG}" >&2
+        else
+          echo "${LOG}" >&${__log_fd}
+        fi
       fi
     done
 
@@ -263,8 +361,13 @@ function log_start() {
    __bl_log_message="#-- STARTED ${__bl_function_name^^} --#"
 
   __bl_time_and_date="$(date '+%d-%m-%Y %H:%M:%S')"
-  echo ""
-  echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message}"
+  LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message}")
+  if [ -z "${__log_fd}" ]; then
+    echo ""
+    echo "${LOG}"
+  else
+    echo "${LOG}" >&${__log_fd}
+  fi
 }
 
 # info message to log end of something
@@ -288,7 +391,11 @@ function log_finish() {
   fi
   __bl_log_message="|-- FINISHED ${__bl_function_name^^} - Took: $((run_time / 3600))h:$(( (run_time % 3600) / 60 ))m:$(( (run_time % 3600) % 60 ))s --|"
 
-  echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message}"
-  echo ""
+  LOG=$(echo "${__bl_time_and_date} - ${__bl_script_name}:${__bl_function_name}:${__bl_called_line_number} - ${__bl_log_message}")
+  if [ -z "${__log_fd}" ]; then
+    echo "${LOG}"
+    echo ""
+  else
+    echo "${LOG}" >&${__log_fd}
+  fi
 }
-
